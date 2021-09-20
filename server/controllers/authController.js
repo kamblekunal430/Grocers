@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
+// Registration module
 module.exports.register = (req, res) => {
   const { name, email, password } = req.body;
 
@@ -46,6 +47,53 @@ module.exports.register = (req, res) => {
       );
     });
   });
+};
+
+// Login module
+
+module.exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({ msg: "Please enter all details" });
+  }
+
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      res.status(400).json({ msg: "User does not exist" });
+    }
+    if (!(user.password === password.split("").reverse().join(""))) {
+      res.status(400).json({ msg: "Invalid Credentials" });
+    }
+
+    jwt.sign(
+      { id: user._id },
+      "jwtSecretOrPublicKey",
+      { expiresIn: 3600 },
+      (err, token) => {
+        if (err) {
+          throw err;
+        }
+        res.json({
+          token: token,
+          user: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+          },
+        });
+      }
+    );
+  });
+};
+
+// getuser module
+module.exports.get_User = (req, res) => {
+  User.findById(req.user.id)
+    .select("-password")
+    .then((user) => {
+      res.json(user);
+    });
 };
 
 /* --- Sample Program to understand JWT------ */
