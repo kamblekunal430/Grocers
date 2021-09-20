@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 // used in the production to serve the client files
 if (process.env.NODE_ENV === "production") {
@@ -12,6 +13,10 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Grocers server");
+});
 
 // connecting to the database using mongoose
 
