@@ -13,7 +13,7 @@ module.exports.register = (req, res) => {
   }
 
   // checking if the user has already registered
-  User.findOne({ email }).then((user) => {
+  User.findOne({ email: email }).then((user) => {
     if (user) {
       res.status(400).json({
         msg: "User already exists",

@@ -14,7 +14,7 @@ function authenticate(req, res, next) {
 
   try {
     // verify the token
-    const decoded_User = jwt.verify(token, "jwtsecretOrPublicKey");
+    const decoded_User = jwt.verify(token, "jwtSecretOrPublicKey");
 
     //addding user from payload
     req.user = decoded_User;
