@@ -5,10 +5,11 @@ const Item = require("../models/Item");
 module.exports.get_cart_items = async (req, res) => {
   const userId = req.params.id;
   try {
-    let cart = await Cart.findOne({ userId });
+    let cart = await Cart.findOne({ userId: userId });
     if (cart && cart.items.length > 0) {
       res.send(cart);
     } else {
+      console.log("No items in the cart");
       res.send(null);
     }
   } catch (err) {
@@ -24,7 +25,7 @@ module.exports.post_cart_item = async (req, res) => {
   const { itemId, quantity } = req.body;
 
   try {
-    let cart = Cart.findOne({ userId: userId });
+    let cart = await Cart.findOne({ userId: userId });
     let item = await Item.findOne({ _id: itemId });
 
     if (!item) {
@@ -35,10 +36,10 @@ module.exports.post_cart_item = async (req, res) => {
     const name = item.name;
 
     // if the cart exist for the user
-
-    if (cart.items) {
-      console.log(cart.items);
-      console.log("updating the cart");
+    //console.log(cart);
+    if (cart) {
+      //console.log(cart.items);
+      //console.log("updating the cart");
       let itemIndex = cart.items.findIndex((p) => p.itemId == itemId);
 
       //if product exists in cart update the product quantity and bill
@@ -53,11 +54,11 @@ module.exports.post_cart_item = async (req, res) => {
       // calculating the bill
       cart.bill += quantity * price;
       cart = await cart.save();
-      return res.staus(201).send(cart);
+      return res.status(201).send(cart);
     }
     // if cart dones not exist create a new cart
     else {
-      console.log("creating new cart");
+      //console.log("creating new cart");
       const newCart = await Cart.create({
         userId,
         items: [{ itemId, name, quantity, price }],
@@ -77,7 +78,7 @@ module.exports.delete_item = async (req, res) => {
   const itemId = req.params.itemId;
 
   try {
-    let cart = Cart.findOne({ userId });
+    let cart = await Cart.findOne({ userId: userId });
     let itemIndex = cart.items.findIndex((p) => (p.itemId = itemId));
 
     // if product is found in the cart
