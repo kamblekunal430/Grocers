@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const authRoute = require("./routes/authRoute");
+const itemsRoute = require("./routes/itemsRoute");
+const cartRoute = require("./routes/cartRoute");
 
 const app = express();
 app.use(express.json({ extended: true }));
@@ -39,3 +42,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+app.use("/", authRoute);
+app.use("/", itemsRoute);
+app.use("/", cartRoute);
