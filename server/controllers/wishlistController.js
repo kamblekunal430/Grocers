@@ -67,3 +67,27 @@ module.exports.post_wishlist_item = async (req, res) => {
     res.status(500).send("something went wrong");
   }
 };
+
+// removing item from the wishlist
+
+module.exports.delete_item = async (req, res) => {
+  const userId = req.params.userId;
+  const itemId = req.params.itemId;
+
+  try {
+    let wishlist = await Wishlist.findOne({ userId: userId });
+
+    let itemIndex = wishlist.items.findIndex((p) => p.itemId == itemId);
+
+    if (itemIndex > -1) {
+      let item = wishlist.items[itemIndex];
+      wishlist.items.splice(itemIndex, 1);
+    }
+
+    wishlist = await wishlist.save();
+    return res.status(201).send(wishlist);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong");
+  }
+};
