@@ -4,6 +4,7 @@ const path = require("path");
 const authRoute = require("./routes/authRoute");
 const itemsRoute = require("./routes/itemsRoute");
 const cartRoute = require("./routes/cartRoute");
+const wishlistRoute = require("./routes/wishlistRoute");
 
 const app = express();
 app.use(express.json({ extended: true }));
@@ -46,3 +47,4 @@ mongoose
 app.use("/", authRoute);
 app.use("/", itemsRoute);
 app.use("/", cartRoute);
+app.use("/", wishlistRoute);
