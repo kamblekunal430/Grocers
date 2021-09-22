@@ -79,7 +79,7 @@ module.exports.delete_item = async (req, res) => {
 
   try {
     let cart = await Cart.findOne({ userId: userId });
-    let itemIndex = cart.items.findIndex((p) => (p.itemId = itemId));
+    let itemIndex = cart.items.findIndex((p) => p.itemId == itemId);
 
     // if product is found in the cart
     // remove the item and update the bill

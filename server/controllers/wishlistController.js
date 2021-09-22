@@ -1,10 +1,9 @@
 const Wishlist = require("../models/Wishlist");
 const Item = require("../models/Item");
-const Cart = require("../models/Cart");
 
 // getting the all the wishlisted item of the user
 module.exports.get_wishlist_items = async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.params.id;
   try {
     let wishlist = await Wishlist.findOne({ userId: userId });
     if (wishlist && wishlist.items.length > 0) {
@@ -21,12 +20,12 @@ module.exports.get_wishlist_items = async (req, res) => {
 
 // adding items to the wishlist
 module.exports.post_wishlist_item = async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.params.id;
   const { itemId } = req.body;
 
   try {
     let wishlist = await Wishlist.findOne({ userId: userId });
-    let item = await Item.findOne({ itemId: itemId });
+    let item = await Item.findOne({ _id: itemId });
 
     if (!item) {
       res.status(404).send("Item not found");
@@ -39,10 +38,10 @@ module.exports.post_wishlist_item = async (req, res) => {
 
       // if item is in wishlist
       if (itemIndex > -1) {
-        res.status(422).send({ msg: "Item already wislisted" });
+        return res.status(422).send({ msg: "Item already wislisted" });
       }
       wishlist.items.push({
-        itemId: item.itemId,
+        itemId: itemId,
         name: item.name,
         price: item.price,
       });
@@ -50,11 +49,12 @@ module.exports.post_wishlist_item = async (req, res) => {
       return res.status(201).send(wishlist);
     } else {
       // creating new wishlist
+      console.log("creating new wishlist");
       const newWishlist = await Wishlist.create({
         userId,
         items: [
           {
-            itemId: item.itemId,
+            itemId: itemId,
             name: item.name,
             price: item.price,
           },
@@ -76,11 +76,10 @@ module.exports.delete_item = async (req, res) => {
 
   try {
     let wishlist = await Wishlist.findOne({ userId: userId });
-
+    console.log(wishlist);
     let itemIndex = wishlist.items.findIndex((p) => p.itemId == itemId);
 
     if (itemIndex > -1) {
-      let item = wishlist.items[itemIndex];
       wishlist.items.splice(itemIndex, 1);
     }
 
