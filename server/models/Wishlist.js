@@ -15,6 +15,15 @@ const WishlistSchema = new Schema({
       name: {
         type: String,
       },
+      quantity: {
+        type: Number,
+        required: true,
+        min: [1, "Quantity cannot be less than 1"],
+        default: 1,
+      },
+      price: {
+        type: Number,
+      },
     },
   ],
 });
