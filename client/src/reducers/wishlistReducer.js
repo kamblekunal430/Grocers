@@ -10,7 +10,7 @@ const initialState = {
   wishlist: null,
 };
 
-export default function (state = initialState, action) {
+export default function wishlistReducer(state = initialState, action) {
   switch (action.type) {
     case GET_WISHLIST_ITEMS:
       return {
@@ -35,5 +35,7 @@ export default function (state = initialState, action) {
         loading: true,
       };
     }
+    default:
+      return state;
   }
 }

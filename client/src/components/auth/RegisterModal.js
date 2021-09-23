@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 

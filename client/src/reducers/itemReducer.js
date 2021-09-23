@@ -11,7 +11,7 @@ const initialState = {
   loading: false,
 };
 
-export default function (state = initialState, action) {
+export default function itemReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS:
       return {
@@ -27,13 +27,13 @@ export default function (state = initialState, action) {
     case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter((item) => item._id != action.payload),
+        items: state.items.filter((item) => item._id !== action.payload),
       };
     case UPDATE_ITEM:
       const { id, data } = action.payload;
       return {
         ...state,
-        items: state.items.map((item) => {
+        items: state.items.forEach((item) => {
           if (item._id === id) {
             item = data;
           }
