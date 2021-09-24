@@ -23,12 +23,12 @@ class Home extends Component {
     getItems: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool,
-    addToCart: PropTypes.func.isRequired,
+    postCartItem: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
   };
 
-  onAddToCart = async (id, productId) => {
-    await this.props.postCartItem(id, productId, 1);
+  onAddToCart = async (id, itemId) => {
+    await this.props.postCartItem(id, itemId, 1);
     alert("Item added to Cart");
   };
 

@@ -7,7 +7,6 @@
     "test": "",
     "start": "nodemon server.js"
   },
-  "type": "module",
   "author": "Kunal M. Kamble",
   "license": "ISC",
   "dependencies": {
