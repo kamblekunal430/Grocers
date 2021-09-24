@@ -44,7 +44,7 @@ mongoose
     console.log(err);
   });
 
-app.use("/", authRoute);
-app.use("/", itemsRoute);
-app.use("/", cartRoute);
-app.use("/", wishlistRoute);
+app.use("/api", authRoute);
+app.use("/api", itemsRoute);
+app.use("/api", cartRoute);
+app.use("/api", wishlistRoute);

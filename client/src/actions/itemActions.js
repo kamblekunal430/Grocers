@@ -14,12 +14,12 @@ export const getItems = () => (dispatch) => {
   dispatch(setItemsLoading());
   axios
     .get("/api/items")
-    .then((res) =>
+    .then((res) => {
       dispatch({
         type: GET_ITEMS,
         payload: res.data,
-      })
-    )
+      });
+    })
     .catch((err) =>
       dispatch(getErrors(err.response.data, err.response.status))
     );
@@ -49,7 +49,7 @@ export const updateItem = (id, item) => (dispatch) => {
     .then((res) =>
       dispatch({
         type: UPDATE_ITEM,
-        payload: res.data,
+        payload: Promise.all([id, res.data]),
       })
     )
     .catch((err) =>

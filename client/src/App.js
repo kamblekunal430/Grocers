@@ -1,8 +1,7 @@
 import { Component } from "react";
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import Home from "./components/Home";
+import Main from "./components/Main";
 import store from "./store";
 import { loadUser } from "./actions/authActions";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -16,7 +15,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Home />
+            <Main />
           </div>
         </Router>
       </Provider>
