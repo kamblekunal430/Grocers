@@ -12,7 +12,7 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getItems } from "../actions/itemActions";
-import { addToCart } from "../actions/cartActions";
+import { postCartItem } from "../actions/cartActions";
 
 class Home extends Component {
   componentDidMount() {
@@ -28,7 +28,7 @@ class Home extends Component {
   };
 
   onAddToCart = async (id, productId) => {
-    await this.props.addToCart(id, productId, 1);
+    await this.props.postCartItem(id, productId, 1);
     alert("Item added to Cart");
   };
 
@@ -77,4 +77,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { getItems, addToCart })(Home);
+export default connect(mapStateToProps, { getItems, postCartItem })(Home);
