@@ -59,7 +59,7 @@ class RegisterModal extends Component {
     });
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
 
     const { name, email, password } = this.state;
@@ -68,7 +68,8 @@ class RegisterModal extends Component {
     const newUser = { name, email, password };
 
     // attempt to register
-    this.props.register(newUser);
+    let res = await this.props.register(newUser);
+    console.log(res);
   };
 
   render() {

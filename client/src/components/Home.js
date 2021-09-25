@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getItems } from "../actions/itemActions";
+import { getItems, deleteItem, postItem } from "../actions/itemActions";
 import { postCartItem } from "../actions/cartActions";
 
 class Home extends Component {
@@ -25,11 +25,23 @@ class Home extends Component {
     isAuthenticated: PropTypes.bool,
     postCartItem: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    postItem: PropTypes.func.isRequired,
   };
 
   onAddToCart = async (id, itemId) => {
     await this.props.postCartItem(id, itemId, 1);
     alert("Item added to Cart");
+  };
+
+  onPostItem = async (item) => {
+    await this.props.postItem(item);
+    alert("Item added successfully");
+  };
+
+  onDeleteItem = async (itemId) => {
+    await this.props.deleteItem(itemId);
+    alert("Item deleted");
   };
 
   render() {
@@ -48,17 +60,27 @@ class Home extends Component {
                     <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
                     <CardText>{item.category}</CardText>
                     {this.props.isAuthenticated ? (
-                      <Button
-                        color="success"
-                        size="sm"
-                        onClick={this.onAddToCart.bind(
-                          this,
-                          user._id,
-                          item._id
-                        )}
-                      >
-                        Add To Cart
-                      </Button>
+                      this.props.user.isAdmin ? (
+                        <Button
+                          color="danger"
+                          size="sm"
+                          onClick={this.onDeleteItem.bind(this, item._id)}
+                        >
+                          Delete Item
+                        </Button>
+                      ) : (
+                        <Button
+                          color="success"
+                          size="sm"
+                          onClick={this.onAddToCart.bind(
+                            this,
+                            user._id,
+                            item._id
+                          )}
+                        >
+                          Add To Cart
+                        </Button>
+                      )
                     ) : null}
                   </CardBody>
                 </Card>
@@ -77,4 +99,9 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { getItems, postCartItem })(Home);
+export default connect(mapStateToProps, {
+  postItem,
+  getItems,
+  postCartItem,
+  deleteItem,
+})(Home);

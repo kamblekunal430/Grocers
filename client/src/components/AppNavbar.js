@@ -32,6 +32,28 @@ class AppNavbar extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
+    const adminLinks = (
+      <Fragment>
+        <NavItem>
+          <span className="navbar-text mr-3">
+            <strong>{user ? `Welcome ${user.name}` : ""}</strong>
+          </span>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/">Home</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/items">Items</NavLink>
+        </NavItem>
+        <NavItem className="mr-2">
+          <NavLink href="/users">Users</NavLink>
+        </NavItem>
+        <NavItem>
+          <Logout />
+        </NavItem>
+      </Fragment>
+    );
+
     const authLinks = (
       <Fragment>
         <NavItem>
@@ -73,7 +95,11 @@ class AppNavbar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                {isAuthenticated ? authLinks : guestLinks}
+                {isAuthenticated
+                  ? Boolean(user.isAdmin)
+                    ? adminLinks
+                    : authLinks
+                  : guestLinks}
               </Nav>
             </Collapse>
           </Container>
