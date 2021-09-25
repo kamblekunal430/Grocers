@@ -4,7 +4,7 @@ import Home from "./Home";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Cart from "./Cart";
-//import Orders from "./Oder";
+import Orders from "./Order";
 
 class Main extends Component {
   render() {
@@ -14,15 +14,15 @@ class Main extends Component {
           <Route path="/home">
             <Home />
           </Route>
-          <Route path="/addItem">
+          <Route path="/items">
             <AddItem />
           </Route>
           <Route path="/cart">
             <Cart />
           </Route>
-          {/* <Route path="/orders">
+          <Route path="/orders">
             <Orders />
-          </Route> */}
+          </Route>
           <Redirect to="/home" />
         </Switch>
       </div>

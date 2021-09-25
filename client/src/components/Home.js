@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getItems, deleteItem, postItem } from "../actions/itemActions";
+import { getItems, deleteItem } from "../actions/itemActions";
 import { postCartItem } from "../actions/cartActions";
 
 class Home extends Component {
@@ -26,7 +26,6 @@ class Home extends Component {
     postCartItem: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     deleteItem: PropTypes.func.isRequired,
-    postItem: PropTypes.func.isRequired,
   };
 
   onAddToCart = async (id, itemId) => {
@@ -34,14 +33,11 @@ class Home extends Component {
     alert("Item added to Cart");
   };
 
-  onPostItem = async (item) => {
-    await this.props.postItem(item);
-    alert("Item added successfully");
-  };
-
   onDeleteItem = async (itemId) => {
-    await this.props.deleteItem(itemId);
-    alert("Item deleted");
+    var res = window.confirm("Confirm Delete Item");
+    if (res) {
+      await this.props.deleteItem(itemId);
+    }
   };
 
   render() {
@@ -56,7 +52,7 @@ class Home extends Component {
               <div className="col-md-4">
                 <Card className="mb-4">
                   <CardBody>
-                    <CardTitle tag="h5">{item.title}</CardTitle>
+                    <CardTitle tag="h5">{item.name}</CardTitle>
                     <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
                     <CardText>{item.category}</CardText>
                     {this.props.isAuthenticated ? (
@@ -99,9 +95,6 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, {
-  postItem,
-  getItems,
-  postCartItem,
-  deleteItem,
-})(Home);
+export default connect(mapStateToProps, { getItems, postCartItem, deleteItem })(
+  Home
+);

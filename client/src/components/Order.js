@@ -5,11 +5,9 @@ import { connect } from "react-redux";
 import { getOrders } from "../actions/orderActions";
 import {
   Card,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
-  Button,
   Alert,
   Container,
 } from "reactstrap";
