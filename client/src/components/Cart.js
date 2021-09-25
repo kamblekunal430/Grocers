@@ -13,7 +13,7 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCartItems, deleteItem } from "../actions/cartActions";
-//import PostOrder from "./PostOrder";
+import PostOrder from "./PostOrder";
 import { postOrder } from "../actions/orderActions";
 
 class Cart extends Component {
@@ -100,11 +100,11 @@ class Cart extends Component {
                     <CardTitle tag="h5">
                       Total Cost = Rs. {this.props.cart.cart.bill}
                     </CardTitle>
-                    {/* <PostOrder
+                    <PostOrder
                       user={user._id}
                       amount={this.props.cart.cart.bill}
                       postOrder={this.props.postOrder}
-                    /> */}
+                    />
                   </CardBody>
                 </Card>
               </div>
