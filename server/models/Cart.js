@@ -6,11 +6,13 @@ const Schema = mongoose.Schema;
 const CartSchema = new Schema({
   userId: {
     type: String,
+    ref: "user",
   },
   items: [
     {
       itemId: {
         type: String,
+        ref: "item",
       },
       name: {
         type: String,
