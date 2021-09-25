@@ -26,7 +26,53 @@ module.exports.register = (req, res) => {
     // storing the password in reverse order
     newUser.password = password.split("").reverse().join("");
 
-    newUser.save().then((user) => {
+    newUser
+      .save()
+      .then((user) => {
+        jwt.sign(
+          { id: user._id },
+          "jwtSecretOrPublicKey",
+          { expiresIn: 3600 },
+          (err, token) => {
+            if (err) {
+              throw err;
+            }
+            res.json({
+              token: token,
+              user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+              },
+            });
+          }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({ success: false });
+      });
+  });
+};
+
+// Login module
+
+module.exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({ msg: "Please enter all details" });
+  }
+
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        res.status(400).json({ msg: "User does not exist" });
+      }
+      if (!(user.password === password.split("").reverse().join(""))) {
+        res.status(400).json({ msg: "Invalid Credentials" });
+      }
+
       jwt.sign(
         { id: user._id },
         "jwtSecretOrPublicKey",
@@ -45,46 +91,11 @@ module.exports.register = (req, res) => {
           });
         }
       );
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({ msg: "something went wrong" });
     });
-  });
-};
-
-// Login module
-
-module.exports.login = async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    res.status(400).json({ msg: "Please enter all details" });
-  }
-
-  User.findOne({ email }).then((user) => {
-    if (!user) {
-      res.status(400).json({ msg: "User does not exist" });
-    }
-    if (!(user.password === password.split("").reverse().join(""))) {
-      res.status(400).json({ msg: "Invalid Credentials" });
-    }
-
-    jwt.sign(
-      { id: user._id },
-      "jwtSecretOrPublicKey",
-      { expiresIn: 3600 },
-      (err, token) => {
-        if (err) {
-          throw err;
-        }
-        res.json({
-          token: token,
-          user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-          },
-        });
-      }
-    );
-  });
 };
 
 // getuser module
@@ -93,6 +104,10 @@ module.exports.get_User = (req, res) => {
     .select("-password")
     .then((user) => {
       res.json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({ msg: "Something went wrong" });
     });
 };
 
