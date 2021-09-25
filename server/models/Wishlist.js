@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// defining cart schema
+// defining the wishlist schema
 
 const WishlistSchema = new Schema({
   userId: {
     type: String,
+    ref: "user",
   },
   items: [
     {
       itemId: {
         type: String,
+        ref: "item",
       },
       name: {
         type: String,
@@ -18,7 +20,7 @@ const WishlistSchema = new Schema({
       quantity: {
         type: Number,
         required: true,
-        min: [1, "Quantity cannot be less than 1"],
+
         default: 1,
       },
       price: {
