@@ -15,8 +15,8 @@ export default function cartReducer(state = initialState, action) {
     case GET_CART_ITEMS:
       return {
         ...state,
-        loading: false,
         cart: action.payload,
+        loading: false,
       };
     case POST_CART_ITEM:
       return {

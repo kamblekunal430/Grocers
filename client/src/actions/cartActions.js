@@ -12,12 +12,13 @@ export const getCartItems = (id) => (dispatch) => {
   dispatch(setCartLoading());
   axios
     .get(`/api/cart/${id}`)
-    .then((res) =>
+    .then((res) => {
+      //console.log(res.data);
       dispatch({
         type: GET_CART_ITEMS,
         payload: res.data,
-      })
-    )
+      });
+    })
     .catch((err) =>
       dispatch(getErrors(err.response.data, err.response.status))
     );
@@ -41,7 +42,7 @@ export const postCartItem = (id, itemId, quantity) => (dispatch) => {
 
 // deleting item from the cart
 
-export const deleteItem = (userId, itemId) => (dispatch) => {
+export const deleteFromCart = (userId, itemId) => (dispatch) => {
   axios
     .delete(`/api/cart/${userId}/${itemId}`)
     .then((res) =>

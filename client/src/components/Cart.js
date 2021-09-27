@@ -12,10 +12,8 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCartItems, deleteItem } from "../actions/cartActions";
-import PostOrder from "./PostOrder";
+import { getCartItems, deleteFromCart } from "../actions/cartActions.js";
 import { postOrder } from "../actions/orderActions";
-
 class Cart extends Component {
   state = {
     loaded: false,
@@ -24,8 +22,7 @@ class Cart extends Component {
   static propTypes = {
     getCartItems: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
-    postCartItem: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
+    deleteFromCart: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     cart: PropTypes.object.isRequired,
     postOrder: PropTypes.func.isRequired,
@@ -36,8 +33,11 @@ class Cart extends Component {
     this.state.loaded = true;
   };
 
+  onPostOrder = async (id, amount) => {
+    this.props.postOrder(id, amount);
+  };
   onDeleteFromCart = (id, itemId) => {
-    this.props.deleteItem(id, itemId);
+    this.props.deleteFromCart(id, itemId);
   };
 
   render() {
@@ -84,7 +84,7 @@ class Cart extends Component {
                         onClick={this.onDeleteFromCart.bind(
                           this,
                           user._id,
-                          item.itemId
+                          item._id
                         )}
                       >
                         Delete
@@ -100,11 +100,17 @@ class Cart extends Component {
                     <CardTitle tag="h5">
                       Total Cost = Rs. {this.props.cart.cart.bill}
                     </CardTitle>
-                    <PostOrder
-                      user={user._id}
-                      amount={this.props.cart.cart.bill}
-                      postOrder={this.props.postOrder}
-                    />
+                    <Button
+                      color="success"
+                      onClick={this.onPostOrder.bind(
+                        this,
+                        user._id,
+
+                        this.props.cart.cart.bill
+                      )}
+                    >
+                      Buy Now
+                    </Button>
                   </CardBody>
                 </Card>
               </div>
@@ -124,6 +130,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCartItems,
-  deleteItem,
+  deleteFromCart,
   postOrder,
 })(Cart);
