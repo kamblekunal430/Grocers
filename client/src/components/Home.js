@@ -50,7 +50,7 @@ class Home extends Component {
           <div className="row">
             {items.map((item) => (
               <div className="col-md-4">
-                <Card className="mb-4">
+                <Card className="mb-4" style={{ backgroundColor: "lightgrey" }}>
                   <CardBody>
                     <CardTitle tag="h5">{item.name}</CardTitle>
                     <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>

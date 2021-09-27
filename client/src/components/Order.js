@@ -10,6 +10,7 @@ import {
   CardSubtitle,
   Alert,
   Container,
+  CardFooter,
 } from "reactstrap";
 
 class Orders extends Component {
@@ -63,22 +64,34 @@ class Orders extends Component {
             <div className="row">
               {this.props.order.orders.map((order) => (
                 <div className="col-md-12">
-                  <Card>
+                  <Card
+                    style={{
+                      backgroundColor: "lightgrey",
+                      border: "black solid 1px",
+                    }}
+                  >
                     <CardBody>
                       <CardTitle tag="h4">
-                        {order.items.length} items - Total cost: Rs.{" "}
-                        {order.bill}
+                        Number of Items - {order.items.length}
                       </CardTitle>
                       <div className="row">
                         {order.items.map((item) => (
                           <div className="col-md-4">
-                            <Card className="mb-2">
-                              <CardBody>
-                                <CardTitle tag="h5">
-                                  {item.name} ({item.quantity} pieces)
-                                </CardTitle>
-                                <CardSubtitle tag="h6">
-                                  Rs. {item.price}/piece
+                            <Card>
+                              <CardBody
+                                style={{
+                                  backgroundColor: "lightgrey",
+                                  border: "black solid 1px",
+                                }}
+                              >
+                                <CardTitle tag="h5">{item.name}</CardTitle>
+                                <CardSubtitle
+                                  tag="h6"
+                                  style={{ lineHeight: "25px" }}
+                                >
+                                  QUANTITY: {item.quantity} <br />
+                                  Rs. {item.price}/Item &emsp; &emsp; Cost: Rs.{" "}
+                                  {item.quantity * item.price}
                                 </CardSubtitle>
                               </CardBody>
                             </Card>
@@ -86,6 +99,13 @@ class Orders extends Component {
                         ))}
                       </div>
                     </CardBody>
+                    <CardFooter
+                      color="dark"
+                      tag="h4"
+                      style={{ backgroundColor: "gray" }}
+                    >
+                      Total Cost: Rs. {order.bill}
+                    </CardFooter>
                   </Card>
                   <br />
                 </div>

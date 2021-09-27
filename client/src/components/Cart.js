@@ -80,7 +80,7 @@ class Cart extends Component {
             <div className="row">
               {cart.items.map((item) => (
                 <div className="col-md-4">
-                  <Card>
+                  <Card style={{ backgroundColor: "lightgrey" }}>
                     <CardBody>
                       <CardTitle tag="h5">{item.name}</CardTitle>
                       <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
@@ -101,9 +101,16 @@ class Cart extends Component {
                 </div>
               ))}
               <div className="col-md-12">
-                <Card>
+                <Card
+                  className="text-center"
+                  style={{
+                    backgroundColor: "lightskyblue",
+                  }}
+                >
                   <CardBody>
-                    <CardTitle tag="h5">Total Cost = Rs. {cart.bill}</CardTitle>
+                    <CardTitle tag="h5" style={{ lineHeight: "50px" }}>
+                      TOTAL COST = Rs. {cart.bill}
+                    </CardTitle>
                     <Button
                       color="success"
                       onClick={this.onPostOrder.bind(this, user._id, {
