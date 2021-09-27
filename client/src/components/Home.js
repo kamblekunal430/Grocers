@@ -5,6 +5,7 @@ import {
   CardText,
   CardBody,
   CardTitle,
+  CardImg,
   CardSubtitle,
   Button,
   Container,
@@ -49,9 +50,16 @@ class Home extends Component {
         <Container>
           <div className="row">
             {items.map((item) => (
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <Card className="mb-4" style={{ backgroundColor: "lightgrey" }}>
                   <CardBody>
+                    <CardImg
+                      top
+                      width="100%"
+                      src="http://hdwpro.com/wp-content/uploads/2015/12/nature-hd-image-1229x768.jpg"
+                    />
+                    <br />
+                    <br />
                     <CardTitle tag="h5">{item.name}</CardTitle>
                     <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
                     <CardText>{item.category}</CardText>

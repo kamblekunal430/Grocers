@@ -1,5 +1,5 @@
 import { Component, Fragment } from "react";
-
+import { Link } from "react-router-dom";
 import {
   Card,
   CardText,
@@ -111,14 +111,16 @@ class Cart extends Component {
                     <CardTitle tag="h5" style={{ lineHeight: "50px" }}>
                       TOTAL COST = Rs. {cart.bill}
                     </CardTitle>
-                    <Button
-                      color="success"
-                      onClick={this.onPostOrder.bind(this, user._id, {
-                        success: true,
-                      })}
-                    >
-                      Buy Now
-                    </Button>
+                    <Link to="/orders">
+                      <Button
+                        color="success"
+                        onClick={this.onPostOrder.bind(this, user._id, {
+                          success: true,
+                        })}
+                      >
+                        Buy Now
+                      </Button>
+                    </Link>
                   </CardBody>
                 </Card>
               </div>

@@ -62,12 +62,11 @@ class Orders extends Component {
         this.props.order.orders.length ? (
           <Container>
             <div className="row">
-              {this.props.order.orders.map((order) => (
+              {this.props.order.orders.reverse().map((order) => (
                 <div className="col-md-12">
                   <Card
                     style={{
                       backgroundColor: "lightgrey",
-                      border: "black solid 1px",
                     }}
                   >
                     <CardBody>
@@ -81,7 +80,7 @@ class Orders extends Component {
                               <CardBody
                                 style={{
                                   backgroundColor: "lightgrey",
-                                  border: "black solid 1px",
+                                  border: "gray solid 1px",
                                 }}
                               >
                                 <CardTitle tag="h5">{item.name}</CardTitle>
@@ -90,8 +89,8 @@ class Orders extends Component {
                                   style={{ lineHeight: "25px" }}
                                 >
                                   QUANTITY: {item.quantity} <br />
-                                  Rs. {item.price}/Item &emsp; &emsp; Cost: Rs.{" "}
-                                  {item.quantity * item.price}
+                                  Rs. {item.price}/Item <br />
+                                  Cost: Rs. {item.quantity * item.price}
                                 </CardSubtitle>
                               </CardBody>
                             </Card>
@@ -102,9 +101,10 @@ class Orders extends Component {
                     <CardFooter
                       color="dark"
                       tag="h4"
-                      style={{ backgroundColor: "gray" }}
+                      style={{ margin: "5px", backgroundColor: "#77dd77" }}
                     >
-                      Total Cost: Rs. {order.bill}
+                      Total Cost: Rs. {order.bill} &emsp;&emsp; Order Date:{" "}
+                      {order.dateAdded.substr(0, 10)}
                     </CardFooter>
                   </Card>
                   <br />
