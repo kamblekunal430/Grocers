@@ -1,19 +1,18 @@
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
 const User = require("../models/User");
-const Cart = require("../models/Cart");
 
 // get the orders made by the user
-module.exports.get_Orders = async (req, res) => {
+module.exports.get_orders = async (req, res) => {
   const userId = req.params.id;
   Order.find({ userid: userId })
     .sort({ data: -1 })
     .then((order) => {
-      res.json(orders);
+      res.json(order);
     });
 };
 
-module.exports.post_Order = async (req, res) => {
+module.exports.post_order = async (req, res) => {
   try {
     const userId = req.params.id;
     paymentDetails = req.body;
@@ -22,7 +21,8 @@ module.exports.post_Order = async (req, res) => {
     let user = await User.findOne({ _id: userId });
 
     if (cart) {
-      const success = paymentDetails.success;
+      console.log("Payment details", paymentDetails);
+      const success = paymentDetails.payment.success;
       if (!success) {
         throw Error("Payment Failed");
       } else {

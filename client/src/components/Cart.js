@@ -33,8 +33,8 @@ class Cart extends Component {
     this.state.loaded = true;
   };
 
-  onPostOrder = async (id, amount) => {
-    this.props.postOrder(id, amount);
+  onPostOrder = async (id, payment) => {
+    this.props.postOrder(id, payment);
   };
   onDeleteFromCart = (id, itemId) => {
     this.props.deleteFromCart(id, itemId);
@@ -102,12 +102,9 @@ class Cart extends Component {
                     </CardTitle>
                     <Button
                       color="success"
-                      onClick={this.onPostOrder.bind(
-                        this,
-                        user._id,
-
-                        this.props.cart.cart.bill
-                      )}
+                      onClick={this.onPostOrder.bind(this, user._id, {
+                        success: true,
+                      })}
                     >
                       Buy Now
                     </Button>

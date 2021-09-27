@@ -17,9 +17,9 @@ export const getOrders = (id) => (dispatch) => {
     );
 };
 
-export const postOrder = (id, source) => (dispatch) => {
+export const postOrder = (id, payment) => (dispatch) => {
   axios
-    .post(`/api/order/${id}`, { source })
+    .post(`/api/order/${id}`, { payment })
     .then((res) =>
       dispatch({
         type: POST_ORDER,
