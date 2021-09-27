@@ -34,15 +34,15 @@ class AppNavbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
     const adminLinks = (
       <Fragment>
-        <NavItem>
+        <NavItem className="mr-2">
           <span className="navbar-text mr-3">
             <strong>{user ? `Welcome ${user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <NavItem>
+        <NavItem className="mr-2">
           <NavLink href="/">Home</NavLink>
         </NavItem>
-        <NavItem>
+        <NavItem className="mr-2">
           <NavLink href="/items">Add Item</NavLink>
         </NavItem>
         <NavItem className="mr-2">
@@ -56,15 +56,15 @@ class AppNavbar extends Component {
 
     const authLinks = (
       <Fragment>
-        <NavItem>
+        <NavItem className="mr-2">
           <span className="navbar-text mr-3">
             <strong>{user ? `Welcome ${user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <NavItem>
+        <NavItem className="mr-2">
           <NavLink href="/">Home</NavLink>
         </NavItem>
-        <NavItem>
+        <NavItem className="mr-2">
           <NavLink href="/cart">Cart</NavLink>
         </NavItem>
         <NavItem className="mr-2">
@@ -78,10 +78,10 @@ class AppNavbar extends Component {
 
     const guestLinks = (
       <Fragment>
-        <NavItem>
+        <NavItem className="mr-2">
           <RegisterModal />
         </NavItem>
-        <NavItem>
+        <NavItem className="mr-2">
           <LoginModal />
         </NavItem>
       </Fragment>
@@ -89,12 +89,12 @@ class AppNavbar extends Component {
 
     return (
       <div>
-        <Navbar color="dark" dark expand="sm" className="mb-5">
+        <Navbar color="dark" dark expand="sm" className="mb-5 ">
           <Container>
             <NavbarBrand href="/">Grocers</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
+              <Nav className="ml-auto float-right" navbar>
                 {isAuthenticated
                   ? Boolean(user.isAdmin)
                     ? adminLinks

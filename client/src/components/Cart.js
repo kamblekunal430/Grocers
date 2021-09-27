@@ -1,5 +1,5 @@
 import { Component, Fragment } from "react";
-import AppNavbar from "./AppNavbar";
+
 import {
   Card,
   CardText,
@@ -12,11 +12,14 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCartItems, deleteFromCart } from "../actions/cartActions.js";
+import AppNavbar from "./AppNavbar";
+import { getCartItems, deleteFromCart } from "../actions/cartActions";
 import { postOrder } from "../actions/orderActions";
+
 class Cart extends Component {
   state = {
     loaded: false,
+    result: null,
   };
 
   static propTypes = {
@@ -35,13 +38,16 @@ class Cart extends Component {
 
   onPostOrder = async (id, payment) => {
     this.props.postOrder(id, payment);
+    window.alert("ORDER SUCCESSFULL");
   };
-  onDeleteFromCart = (id, itemId) => {
-    this.props.deleteFromCart(id, itemId);
+  onDeleteFromCart = async (id, itemId) => {
+    await this.props.deleteFromCart(id, itemId);
   };
 
   render() {
     const user = this.props.user;
+    const cart = this.props.cart.cart;
+    console.log("render", cart);
     if (
       this.props.isAuthenticated &&
       !this.props.cart.loading &&
@@ -54,7 +60,7 @@ class Cart extends Component {
         <AppNavbar />
         {this.props.isAuthenticated ? (
           <Fragment>
-            {this.props.cart.cart ? null : (
+            {cart ? null : (
               <Alert color="info" className="text-center">
                 Your cart is empty!
               </Alert>
@@ -69,10 +75,10 @@ class Cart extends Component {
         {this.props.isAuthenticated &&
         !this.props.cart.loading &&
         this.state.loaded &&
-        this.props.cart.cart ? (
+        cart ? (
           <Container>
             <div className="row">
-              {this.props.cart.cart.items.map((item) => (
+              {cart.items.map((item) => (
                 <div className="col-md-4">
                   <Card>
                     <CardBody>
@@ -84,22 +90,20 @@ class Cart extends Component {
                         onClick={this.onDeleteFromCart.bind(
                           this,
                           user._id,
-                          item._id
+                          item.itemId
                         )}
                       >
-                        Delete
+                        Remove
                       </Button>
                     </CardBody>
                   </Card>
                   <br />
                 </div>
               ))}
-              <div class="col-md-12">
+              <div className="col-md-12">
                 <Card>
                   <CardBody>
-                    <CardTitle tag="h5">
-                      Total Cost = Rs. {this.props.cart.cart.bill}
-                    </CardTitle>
+                    <CardTitle tag="h5">Total Cost = Rs. {cart.bill}</CardTitle>
                     <Button
                       color="success"
                       onClick={this.onPostOrder.bind(this, user._id, {

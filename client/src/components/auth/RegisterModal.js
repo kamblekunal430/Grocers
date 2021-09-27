@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 import { connect } from "react-redux";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 
@@ -24,6 +24,13 @@ class RegisterModal extends Component {
     email: "",
     password: "",
     msg: null,
+  };
+
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
   };
 
   componentDidUpdate(prevProps) {
@@ -68,8 +75,7 @@ class RegisterModal extends Component {
     const newUser = { name, email, password };
 
     // attempt to register
-    let res = await this.props.register(newUser);
-    console.log(res);
+    this.props.register(newUser);
   };
 
   render() {

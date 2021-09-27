@@ -1,6 +1,7 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Component } from "react";
 import { Provider } from "react-redux";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import Main from "./components/Main";
 import store from "./store";
 import { loadUser } from "./actions/authActions";
