@@ -44,7 +44,8 @@ class Orders extends Component {
         <AppNavbar />
         {this.props.isAuthenticated ? (
           <Fragment>
-            {this.props.order.orders !== [] ? null : (
+            {/* console.log("insde", this.props.order.orders) */}
+            {this.props.order.orders.length !== 0 ? null : (
               <Alert color="info" className="text-center">
                 You have no orders!
               </Alert>
