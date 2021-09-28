@@ -41,6 +41,7 @@ module.exports.register = (req, res) => {
               id: user._id,
               name: user.name,
               email: user.email,
+              isAdmin: user.isAdmin,
             },
           });
         }
@@ -80,6 +81,7 @@ module.exports.login = async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
+            isAdmin: user.isAdmin,
           },
         });
       }
