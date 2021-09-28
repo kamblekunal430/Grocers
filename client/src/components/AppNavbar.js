@@ -32,9 +32,10 @@ class AppNavbar extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
+    //console.log("auth", user);
     const adminLinks = (
       <Fragment>
-        <NavItem className="m-1 navbar-text">
+        <NavItem className="m-1 navbar-text p-2">
           {user ? `Welcome ${user.name}` : ""}
         </NavItem>
         <NavItem className="m-1">

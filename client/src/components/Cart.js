@@ -47,7 +47,7 @@ class Cart extends Component {
   render() {
     const user = this.props.user;
     const cart = this.props.cart.cart;
-    console.log("render", cart);
+    //console.log("render", cart);
     if (
       this.props.isAuthenticated &&
       !this.props.cart.loading &&
@@ -60,7 +60,7 @@ class Cart extends Component {
         <AppNavbar />
         {this.props.isAuthenticated ? (
           <Fragment>
-            {cart ? null : (
+            {cart && cart.items.length > 0 ? null : (
               <Alert color="info" className="text-center">
                 Your cart is empty!
               </Alert>
@@ -100,30 +100,34 @@ class Cart extends Component {
                   <br />
                 </div>
               ))}
-              <div className="col-md-12">
-                <Card
-                  className="text-center"
-                  style={{
-                    backgroundColor: "lightskyblue",
-                  }}
-                >
-                  <CardBody>
-                    <CardTitle tag="h5" style={{ lineHeight: "50px" }}>
-                      TOTAL COST = Rs. {cart.bill}
-                    </CardTitle>
-                    <Link to="/orders">
-                      <Button
-                        color="success"
-                        onClick={this.onPostOrder.bind(this, user._id, {
-                          success: true,
-                        })}
-                      >
-                        Buy Now
-                      </Button>
-                    </Link>
-                  </CardBody>
-                </Card>
-              </div>
+              {cart.items.length > 0 ? (
+                <div className="col-md-12">
+                  <Card
+                    className="text-center"
+                    style={{
+                      backgroundColor: "lightskyblue",
+                    }}
+                  >
+                    <CardBody>
+                      <CardTitle tag="h5" style={{ lineHeight: "50px" }}>
+                        TOTAL COST = Rs. {cart.bill}
+                      </CardTitle>
+                      <Link to="/orders">
+                        <Button
+                          color="success"
+                          onClick={this.onPostOrder.bind(this, user._id, {
+                            success: true,
+                          })}
+                        >
+                          Buy Now
+                        </Button>
+                      </Link>
+                    </CardBody>
+                  </Card>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </Container>
         ) : null}
