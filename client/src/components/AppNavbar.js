@@ -42,7 +42,7 @@ class AppNavbar extends Component {
           <NavLink href="/">Home</NavLink>
         </NavItem>
         <NavItem className="m-1">
-          <NavLink href="/items">Add Item</NavLink>
+          <NavLink href="/items">Items</NavLink>
         </NavItem>
         <NavItem className="m-1">
           <NavLink href="/users">Users</NavLink>

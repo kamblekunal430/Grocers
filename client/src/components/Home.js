@@ -59,12 +59,12 @@ class Home extends Component {
           <div className="row">
             {items.map((item) => (
               <div className="col-md-3">
-                <Card className="mb-4" style={{ backgroundColor: "lightgrey" }}>
+                <Card className="mb-4" style={{ backgroundColor: "#d4f1f4" }}>
                   <CardBody>
                     <CardImg
                       top
                       width="100%"
-                      src="http://hdwpro.com/wp-content/uploads/2015/12/nature-hd-image-1229x768.jpg"
+                      src="https://static0.srcdn.com/wordpress/wp-content/uploads/2020/08/T-Mobile-REVVL-5G-smartphone.jpg"
                     />
                     <br />
                     <br />

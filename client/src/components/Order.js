@@ -67,7 +67,7 @@ class Orders extends Component {
                 <div className="col-md-12">
                   <Card
                     style={{
-                      backgroundColor: "lightgrey",
+                      backgroundColor: "#d4f1f4",
                     }}
                   >
                     <CardBody>
@@ -80,7 +80,7 @@ class Orders extends Component {
                             <Card>
                               <CardBody
                                 style={{
-                                  backgroundColor: "lightgrey",
+                                  backgroundColor: "#d4f1f4",
                                   border: "gray solid 1px",
                                 }}
                               >

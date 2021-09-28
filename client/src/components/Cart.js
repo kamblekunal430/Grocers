@@ -80,7 +80,7 @@ class Cart extends Component {
             <div className="row">
               {cart.items.map((item) => (
                 <div className="col-md-4">
-                  <Card style={{ backgroundColor: "lightgrey" }}>
+                  <Card style={{ backgroundColor: "#d4f1f4" }}>
                     <CardBody>
                       <CardTitle tag="h5">{item.name}</CardTitle>
                       <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
