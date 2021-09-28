@@ -5,6 +5,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Cart from "./Cart";
 import Orders from "./Order";
+import Wishlist from "./Wishlist";
 
 class Main extends Component {
   render() {
@@ -22,6 +23,9 @@ class Main extends Component {
           </Route>
           <Route path="/orders">
             <Orders />
+          </Route>
+          <Route path="/wishlist">
+            <Wishlist />
           </Route>
           <Redirect to="/home" />
         </Switch>

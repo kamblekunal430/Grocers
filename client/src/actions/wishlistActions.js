@@ -41,7 +41,7 @@ export const postWishlistItem = (id, itemId) => (dispatch) => {
 
 // deleting item from the wishlist
 
-export const deleteItem = (userId, itemId) => (dispatch) => {
+export const deleteWishlistItem = (userId, itemId) => (dispatch) => {
   axios
     .delete(`/api/wishlist/${userId}/${itemId}`)
     .then((res) =>

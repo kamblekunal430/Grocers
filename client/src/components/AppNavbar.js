@@ -62,6 +62,9 @@ class AppNavbar extends Component {
           <NavLink href="/">Home</NavLink>
         </NavItem>
         <NavItem className="m-1">
+          <NavLink href="/wishlist">Wishlist</NavLink>
+        </NavItem>
+        <NavItem className="m-1">
           <NavLink href="/cart">Cart</NavLink>
         </NavItem>
         <NavItem className="m-1">

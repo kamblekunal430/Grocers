@@ -8,12 +8,14 @@ import {
   CardImg,
   CardSubtitle,
   Button,
+  CardFooter,
   Container,
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getItems, deleteItem } from "../actions/itemActions";
 import { postCartItem } from "../actions/cartActions";
+import { postWishlistItem } from "../actions/wishlistActions";
 
 class Home extends Component {
   componentDidMount() {
@@ -27,11 +29,17 @@ class Home extends Component {
     postCartItem: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     deleteItem: PropTypes.func.isRequired,
+    postWishlistItem: PropTypes.func.isRequired,
   };
 
   onAddToCart = async (id, itemId) => {
     await this.props.postCartItem(id, itemId, 1);
     alert("Item added to Cart");
+  };
+
+  onPostWishlistItem = async (id, itemId) => {
+    await this.props.postWishlistItem(id, itemId);
+    alert("Item Wishlisted");
   };
 
   onDeleteItem = async (itemId) => {
@@ -63,8 +71,10 @@ class Home extends Component {
                     <CardTitle tag="h5">{item.name}</CardTitle>
                     <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
                     <CardText>{item.category}</CardText>
-                    {this.props.isAuthenticated ? (
-                      this.props.user.isAdmin ? (
+                  </CardBody>
+                  {this.props.isAuthenticated ? (
+                    this.props.user.isAdmin ? (
+                      <CardFooter>
                         <Button
                           color="danger"
                           size="sm"
@@ -72,8 +82,11 @@ class Home extends Component {
                         >
                           Delete Item
                         </Button>
-                      ) : (
+                      </CardFooter>
+                    ) : (
+                      <CardFooter>
                         <Button
+                          className="mx-3"
                           color="success"
                           size="sm"
                           onClick={this.onAddToCart.bind(
@@ -84,9 +97,22 @@ class Home extends Component {
                         >
                           Add To Cart
                         </Button>
-                      )
-                    ) : null}
-                  </CardBody>
+
+                        <Button
+                          className="mx-3"
+                          color="dark"
+                          size="sm"
+                          onClick={this.onPostWishlistItem.bind(
+                            this,
+                            user._id,
+                            item._id
+                          )}
+                        >
+                          Add to Wishlist
+                        </Button>
+                      </CardFooter>
+                    )
+                  ) : null}
                 </Card>
               </div>
             ))}
@@ -103,6 +129,9 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { getItems, postCartItem, deleteItem })(
-  Home
-);
+export default connect(mapStateToProps, {
+  getItems,
+  postWishlistItem,
+  postCartItem,
+  deleteItem,
+})(Home);
