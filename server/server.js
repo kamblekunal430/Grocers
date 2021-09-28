@@ -6,6 +6,7 @@ const itemsRoute = require("./routes/itemsRoute");
 const cartRoute = require("./routes/cartRoute");
 const wishlistRoute = require("./routes/wishlistRoute");
 const orderRoute = require("./routes/orderRoute");
+const userRoute = require("./routes/userRoute");
 
 const app = express();
 app.use(express.json({ extended: true }));
@@ -50,3 +51,4 @@ app.use("/api", itemsRoute);
 app.use("/api", cartRoute);
 app.use("/api", wishlistRoute);
 app.use("/api", orderRoute);
+app.use("/api", userRoute);
