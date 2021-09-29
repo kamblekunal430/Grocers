@@ -15,7 +15,7 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getUsers, deleteUser } from "../actions/userActions";
-
+import { Redirect } from "react-router-dom";
 class User extends Component {
   state = {
     loaded: false,
@@ -55,13 +55,17 @@ class User extends Component {
       <div>
         <AppNavbar />
         {this.props.isAuthenticated ? (
-          <Fragment>
-            {userList && userList.length > 0 ? null : (
-              <Alert color="info" className="text-center">
-                No Users Found!
-              </Alert>
-            )}
-          </Fragment>
+          user.isAdmin ? (
+            <Fragment>
+              {userList && userList.length > 0 ? null : (
+                <Alert color="info" className="text-center">
+                  No Users Found!
+                </Alert>
+              )}
+            </Fragment>
+          ) : (
+            <Redirect to="/" />
+          )
         ) : (
           <Alert color="danger" className="text-center">
             Login to View!
