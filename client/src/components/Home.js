@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import { getItems, deleteItem } from "../actions/itemActions";
 import { postCartItem } from "../actions/cartActions";
 import { postWishlistItem } from "../actions/wishlistActions";
+import UpdateItem from "./UpdateItem";
 
 class Home extends Component {
   componentDidMount() {
@@ -48,7 +49,9 @@ class Home extends Component {
       await this.props.deleteItem(itemId);
     }
   };
-
+  onUpdateItem = async (itemId) => {
+    //await this.props.updateItem(itemId);
+  };
   render() {
     const { items } = this.props.item;
     const user = this.props.user;
@@ -62,7 +65,7 @@ class Home extends Component {
                 <Card className="mb-4" style={{ backgroundColor: "#d4f1f4" }}>
                   <CardImg
                     top
-                    width="100%"
+                    className="w-100 h-100"
                     src="https://static0.srcdn.com/wordpress/wp-content/uploads/2020/08/T-Mobile-REVVL-5G-smartphone.jpg"
                   />
                   <CardBody>
@@ -76,9 +79,15 @@ class Home extends Component {
                         <Button
                           color="danger"
                           size="sm"
+                          className="m-1 p-2"
                           onClick={this.onDeleteItem.bind(this, item._id)}
                         >
                           Delete Item
+                        </Button>
+                        <Button size="sm" color="info">
+                          <span>
+                            <UpdateItem item={item} />
+                          </span>
                         </Button>
                       </CardFooter>
                     ) : (

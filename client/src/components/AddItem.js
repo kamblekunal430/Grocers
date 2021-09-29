@@ -49,7 +49,7 @@ class AddItem extends Component {
       <div>
         <AppNavbar />
         <Container>
-          <h2 className="text-center mb-3">Add/Upadate an Item</h2>
+          <h2 className="text-center mb-3">Add a Item</h2>
           {this.props.isAuthenticated ? (
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
@@ -91,14 +91,6 @@ class AddItem extends Component {
 
                 <Button color="info" style={{ marginTop: "2rem" }} block>
                   <b>Add Item</b>
-                </Button>
-                <Button
-                  color="info"
-                  className="mx-3"
-                  style={{ marginTop: "2rem" }}
-                  block
-                >
-                  <b>Upadate Item</b>
                 </Button>
               </FormGroup>
             </Form>
