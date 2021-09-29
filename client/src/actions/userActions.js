@@ -1,19 +1,18 @@
 import axios from "axios";
 import { getErrors } from "./errorActions";
-import { USER_LOADING, GET_USERS, DELETE_USER } from "./types";
+import { USERLIST_LOADING, GET_USERS, DELETE_USER } from "./types";
 
 // getting users from the server/backend
 export const getUsers = () => (dispatch) => {
   dispatch(setUserLoading());
   axios
     .get(`/api/users`)
-    .then((res) => {
-      //console.log(res.data);
+    .then((res) =>
       dispatch({
         type: GET_USERS,
         payload: res.data,
-      });
-    })
+      })
+    )
     .catch((err) =>
       dispatch(getErrors(err.response.data, err.response.status))
     );
@@ -36,6 +35,6 @@ export const deleteUser = (userId) => (dispatch) => {
 
 export const setUserLoading = () => {
   return {
-    type: USER_LOADING,
+    type: USERLIST_LOADING,
   };
 };

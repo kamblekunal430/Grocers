@@ -33,6 +33,7 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_USERS = "GET_USERS";
 export const DELETE_USER = "DELETE_USER";
+export const USERLIST_LOADING = "USERLIST_LOADING";
 
 //errors
 export const GET_ERRORS = "GET_ERRORS";

@@ -1,8 +1,8 @@
-import { GET_USERS, DELETE_USER, USER_LOADING } from "../actions/types";
+import { GET_USERS, DELETE_USER, USERLIST_LOADING } from "../actions/types";
 
 const initialState = {
   loading: false,
-  users: [],
+  userList: null,
 };
 
 export default function userReducer(state = initialState, action) {
@@ -10,17 +10,17 @@ export default function userReducer(state = initialState, action) {
     case GET_USERS:
       return {
         ...state,
-        users: action.payload,
+        userList: action.payload,
         loading: false,
       };
 
     case DELETE_USER:
       return {
         ...state,
-        users: state.users.filter((user) => user._id !== action.payload),
+        userList: state.userList.filter((user) => user._id !== action.payload),
       };
 
-    case USER_LOADING: {
+    case USERLIST_LOADING: {
       return {
         ...state,
         loading: true,
