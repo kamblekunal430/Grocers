@@ -71,27 +71,38 @@ class User extends Component {
         {this.props.isAuthenticated && user.isAdmin && userList ? (
           <Container>
             <div className="row">
-              {userList.map((user) => (
-                <div className="col-md-4">
-                  <Card style={{ backgroundColor: "#d4f1f4" }}>
-                    <CardImg top src={icon} alt="User Icon" />
-                    <CardBody>
-                      <CardTitle tag="h5">{user.name}</CardTitle>
-                      <CardSubtitle tag="h6">Email: {user.email}</CardSubtitle>
-                      <CardText>
-                        Registration Date - {user.registerDate}
-                      </CardText>
-                      <Button
-                        color="danger"
-                        onClick={this.onDeleteUser.bind(this, user._id)}
-                      >
-                        Delete User
-                      </Button>
-                    </CardBody>
-                  </Card>
-                  <br />
-                </div>
-              ))}
+              {userList.map((user) =>
+                !user.isAdmin ? (
+                  <div className="col-md-3">
+                    <Card style={{ backgroundColor: "#d4f1f4" }}>
+                      <CardImg
+                        top
+                        className="w-100 h-100"
+                        src={icon}
+                        alt="User Icon"
+                      />
+                      <CardBody>
+                        <CardTitle tag="h5">{user.name}</CardTitle>
+                        <CardSubtitle tag="h6">
+                          Email: {user.email}
+                        </CardSubtitle>
+                        <CardText>
+                          Registration Date - {user.registerDate.substr(0, 10)}
+                        </CardText>
+                        <Button
+                          color="danger"
+                          onClick={this.onDeleteUser.bind(this, user._id)}
+                        >
+                          Delete User
+                        </Button>
+                      </CardBody>
+                    </Card>
+                    <br />
+                  </div>
+                ) : (
+                  ""
+                )
+              )}
             </div>
           </Container>
         ) : null}
