@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 
 // Registration module
 module.exports.register = (req, res) => {
@@ -12,10 +13,19 @@ module.exports.register = (req, res) => {
     });
   }
 
+  //checking if email is valid
+  if (validator.isEmail(email)) {
+    console.log("email is valid");
+  } else {
+    return res.status(400).json({
+      msg: "Please enter valid email",
+    });
+  }
+
   // checking if the user has already registered
   User.findOne({ email: email }).then((user) => {
     if (user) {
-      res.status(400).json({
+      return res.status(400).json({
         msg: "User already exists",
       });
     }
@@ -56,15 +66,15 @@ module.exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ msg: "Please enter all details" });
+    return res.status(400).json({ msg: "Please enter all details" });
   }
 
   User.findOne({ email }).then((user) => {
     if (!user) {
-      res.status(400).json({ msg: "User does not exist" });
+      return res.status(400).json({ msg: "User does not exist" });
     }
     if (!(user.password === password.split("").reverse().join(""))) {
-      res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(400).json({ msg: "Invalid Credentials" });
     }
 
     jwt.sign(
