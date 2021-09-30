@@ -79,6 +79,14 @@ class Wishlist extends Component {
         this.state.loaded &&
         wishlist ? (
           <Container>
+            <h2
+              className="text-center mb-0"
+              style={{ backgroundColor: "#d4f1f4", height: "50px" }}
+            >
+              Your Wishlist!
+            </h2>
+            <br />
+            <br />
             <div className="row">
               {wishlist.items.map((item) => (
                 <div className="col-md-3">
@@ -101,7 +109,7 @@ class Wishlist extends Component {
                           item.itemId
                         )}
                       >
-                        Remove from Wishlist
+                        Remove
                       </Button>
                       <Button
                         className="mx-3 mt-3"

@@ -78,6 +78,14 @@ class Cart extends Component {
         this.state.loaded &&
         cart ? (
           <Container>
+            <h2
+              className="text-center mb-0"
+              style={{ backgroundColor: "#d4f1f4", height: "50px" }}
+            >
+              Your Cart!
+            </h2>
+            <br />
+            <br />
             <div className="row">
               {cart.items.map((item) => (
                 <div className="col-md-3">
