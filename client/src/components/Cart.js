@@ -6,6 +6,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  CardImg,
   Button,
   Alert,
   Container,
@@ -79,8 +80,14 @@ class Cart extends Component {
           <Container>
             <div className="row">
               {cart.items.map((item) => (
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <Card style={{ backgroundColor: "#d4f1f4" }}>
+                    <CardImg
+                      top
+                      width="100%"
+                      style={{ height: "300px", padding: "5px" }}
+                      src={item.image}
+                    />
                     <CardBody>
                       <CardTitle tag="h5">{item.name}</CardTitle>
                       <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>

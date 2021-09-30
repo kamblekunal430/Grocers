@@ -14,6 +14,9 @@ const WishlistSchema = new Schema({
         type: String,
         ref: "item",
       },
+      image: {
+        type: "String",
+      },
       name: {
         type: String,
       },

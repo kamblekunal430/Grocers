@@ -20,6 +20,7 @@ class AddItem extends Component {
     details: "",
     category: "",
     price: "",
+    image: "",
   };
 
   static propTypes = {
@@ -31,6 +32,26 @@ class AddItem extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleReaderLoaded = (readerEvent) => {
+    let imgStr = readerEvent.target.result;
+    console.log(imgStr);
+    this.setState({
+      image: imgStr,
+    });
+  };
+
+  onImgUpload = (e) => {
+    let file = e.target.files[0];
+    console.log("file to upload", file);
+
+    // if file exist convert into base64 string
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsDataURL(file);
+    }
+  };
+
   onSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,6 +60,7 @@ class AddItem extends Component {
       details: this.state.details,
       category: this.state.category,
       price: this.state.price,
+      image: this.state.image,
     };
 
     await this.props.postItem(newItem);
@@ -92,7 +114,21 @@ class AddItem extends Component {
                     placeholder="Price of the item"
                     onChange={this.onChange}
                   />
-
+                  <br />
+                  <Label for="image">Upload Image:</Label>&emsp;&emsp;
+                  <Input
+                    type="file"
+                    name="image"
+                    id="image"
+                    accept="image/*"
+                    onChange={this.onImgUpload}
+                  />
+                  <img
+                    src={this.state.image}
+                    alt="Item preview"
+                    style={{ width: "250px", height: "200px" }}
+                  />
+                  <br />
                   <Button color="info" style={{ marginTop: "2rem" }} block>
                     <b>Add Item</b>
                   </Button>

@@ -21,6 +21,7 @@ class UpdateItem extends Component {
     details: "",
     category: "",
     price: "",
+    image: "",
   };
 
   static propTypes = {
@@ -35,21 +36,42 @@ class UpdateItem extends Component {
       details: this.props.item.details,
       category: this.props.item.category,
       price: this.props.item.price,
+      image: this.props.item.image,
     });
   };
 
   onChange = (event) => {
-    console.log(event.target.name, event.target.value);
+    // console.log(event.target.name, event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
+  handleReaderLoaded = (readerEvent) => {
+    let imgStr = readerEvent.target.result;
+    console.log(imgStr);
+    this.setState({
+      image: imgStr,
+    });
+  };
+
+  onImgUpload = (e) => {
+    let file = e.target.files[0];
+    console.log("file to upload", file);
+
+    // if file exist convert into base64 string
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsDataURL(file);
+    }
+  };
+
   onSubmit = async (event) => {
-    const { name, details, category, price } = this.state;
+    const { name, details, category, price, image } = this.state;
 
     //create item objtect
-    const data = { name, details, category, price };
+    const data = { name, details, category, price, image };
 
     await this.props.updateItem(this.props.item._id, data);
   };
@@ -105,6 +127,15 @@ class UpdateItem extends Component {
                   id="price"
                   placeholder={this.state.price || ""}
                   onChange={this.onChange}
+                />
+                <br />
+                <Label for="image">Upload Image:</Label>&emsp;&emsp;
+                <Input
+                  type="file"
+                  name="image"
+                  id="image"
+                  accept="image/*"
+                  onChange={this.onImgUpload}
                 />
                 <Button color="success" style={{ marginTop: "2rem" }} block>
                   Update

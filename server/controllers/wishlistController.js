@@ -44,6 +44,7 @@ module.exports.post_wishlist_item = async (req, res) => {
         itemId: itemId,
         name: item.name,
         price: item.price,
+        image: item.image,
       });
       wishlist = await wishlist.save();
       return res.status(201).send(wishlist);
@@ -57,6 +58,7 @@ module.exports.post_wishlist_item = async (req, res) => {
             itemId: itemId,
             name: item.name,
             price: item.price,
+            image: item.image,
           },
         ],
       });

@@ -65,8 +65,9 @@ class Home extends Component {
                 <Card className="mb-4" style={{ backgroundColor: "#d4f1f4" }}>
                   <CardImg
                     top
-                    className="w-100 h-100"
-                    src="https://static0.srcdn.com/wordpress/wp-content/uploads/2020/08/T-Mobile-REVVL-5G-smartphone.jpg"
+                    width="100%"
+                    style={{ height: "300px", padding: "5px" }}
+                    src={item.image}
                   />
                   <CardBody>
                     <CardTitle tag="h5">{item.name}</CardTitle>
