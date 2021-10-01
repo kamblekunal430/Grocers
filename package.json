@@ -1,0 +1,25 @@
+{
+  "name": "grocers",
+  "version": "1.0.0",
+  "description": "A Website used for online purchase of Groceries. Created Using MongoDB, Express, React and NodeJS.",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^6.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server": "cd server && npm install && node server.js",
+    "client": "cd client && npm install  && npm start",
+    "start": "npm i && concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamblekunal430/Grocers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamblekunal430/Grocers/issues"
+  },
+  "homepage": "https://github.com/kamblekunal430/Grocers#readme"
+}

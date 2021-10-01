@@ -62,6 +62,12 @@ class Orders extends Component {
         this.state.loaded &&
         this.props.order.orders.length ? (
           <Container>
+            <h2
+              className="text-center mb-0"
+              style={{ backgroundColor: "#d4f1f4", height: "50px" }}
+            >
+              Your Orders!
+            </h2>
             <div className="row">
               {this.props.order.orders.reverse().map((order) => (
                 <div className="col-md-12">
