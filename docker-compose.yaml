@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  client:
+    image: client
+    build: ./client/
+    stdin_open: true
+    ports:
+      - "80:3000"
+    networks:
+      - grocers
+
+  server:
+    image: server
+    build: ./server/
+    ports:
+      - "8000:8000"
+    networks:
+      - grocers
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4-bionic
+    ports:
+      - "27017:27017"
+    networks:
+      - grocers
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  grocers:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 // connecting to the database using mongoose
 
-const dbUrl = "mongodb://localhost:27017/GrocersDB";
+const dbUrl = "mongodb://mongo:27017/GrocersDB";
 
 const PORT = process.env.PORT || 8000;
 
