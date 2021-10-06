@@ -1,8 +1,8 @@
-version: "3"
+version: "3.7"
 
 services:
   client:
-    image: client
+    image: kamblekunal430/client
     build: ./client/
     stdin_open: true
     ports:
@@ -11,7 +11,7 @@ services:
       - grocers
 
   server:
-    image: server
+    image: kamblekunal430/server
     build: ./server/
     ports:
       - "8000:8000"
