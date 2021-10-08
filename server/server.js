@@ -12,14 +12,21 @@ const app = express();
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api", authRoute);
+app.use("/api", itemsRoute);
+app.use("/api", cartRoute);
+app.use("/api", wishlistRoute);
+app.use("/api", orderRoute);
+app.use("/api", userRoute);
+
 // used in the production to serve the client files
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  app.use(express.static(path.resolve("client", "build")));
+
+  app.get("/*", (req, res) => {
+    res.sendFile(path.resolve("client", "build", "index.html"));
   });
 }
-
 app.get("/", (req, res) => {
   res.send("Welcome to the Grocers server");
 });
@@ -45,10 +52,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-app.use("/api", authRoute);
-app.use("/api", itemsRoute);
-app.use("/api", cartRoute);
-app.use("/api", wishlistRoute);
-app.use("/api", orderRoute);
-app.use("/api", userRoute);

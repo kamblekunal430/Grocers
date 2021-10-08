@@ -1,31 +1,24 @@
 version: "3.7"
-
 services:
-  client:
-    image: kamblekunal430/client
-    build: ./client/
-    stdin_open: true
+  GroceryApp:
+    image: kamblekunal430/grocerystore
     ports:
-      - "80:3000"
-    networks:
-      - grocers
-
-  server:
-    image: kamblekunal430/server
-    build: ./server/
-    ports:
-      - "8000:8000"
+      - "80:8000"
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
     networks:
       - grocers
     depends_on:
       - mongo
 
   mongo:
-    image: mongo:4.4-bionic
+    image: mongo:4.4-focal
     ports:
       - "27017:27017"
     networks:
       - grocers
+
     volumes:
       - mongo-data:/data/db
 
@@ -36,3 +29,44 @@ networks:
 volumes:
   mongo-data:
     driver: local
+# uncomment for devlopement
+
+# version: "3.7"
+
+# services:
+#   client:
+#     image: kamblekunal430/client
+#     stdin_open: true
+#     restart: unless-stopped
+#     networks:
+#       - grocers
+
+#   server:
+#     image: kamblekunal430/server
+#     ports:
+#       - "80:8000"
+#     restart: unless-stopped
+
+#     networks:
+#       - grocers
+#     depends_on:
+#       - mongo
+
+#   mongo:
+#     image: mongo:4.4-bionic
+#     ports:
+#       - "27017:27017"
+#     networks:
+#       - grocers
+
+#     volumes:
+#       - mongo-data:/data/db
+
+# networks:
+#   grocers:
+#     driver: bridge
+
+# volumes:
+#   mongo-data:
+#     driver: local
+

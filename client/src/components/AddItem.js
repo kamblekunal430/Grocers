@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { postItem } from "../actions/itemActions";
 import PropTypes from "prop-types";
 import AppNavbar from "./AppNavbar";
-import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router";
 
 class AddItem extends Component {
   state = {
@@ -52,6 +52,10 @@ class AddItem extends Component {
     }
   };
 
+  formReset() {
+    document.getElementById("itemForm").reset();
+  }
+
   onSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,6 +70,7 @@ class AddItem extends Component {
     await this.props.postItem(newItem);
 
     alert("Item added successfully");
+    this.formReset();
   };
 
   render() {
@@ -77,7 +82,7 @@ class AddItem extends Component {
           <h2 className="text-center mb-3">Add a Item</h2>
           {this.props.isAuthenticated ? (
             this.props.user.isAdmin ? (
-              <Form onSubmit={this.onSubmit}>
+              <Form onSubmit={this.onSubmit} id="itemForm">
                 <FormGroup>
                   <Label for="name">Name</Label>
                   <Input
