@@ -54,6 +54,7 @@ class AddItem extends Component {
 
   formReset() {
     document.getElementById("itemForm").reset();
+    this.setState({ image: "" });
   }
 
   onSubmit = async (e) => {
