@@ -22,6 +22,12 @@ module.exports.register = (req, res) => {
     });
   }
 
+  if (password.length < 8) {
+    return res.status(400).json({
+      msg: "Password must be min 8 characters",
+    });
+  }
+
   // checking if the user has already registered
   User.findOne({ email: email }).then((user) => {
     if (user) {

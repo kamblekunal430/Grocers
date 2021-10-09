@@ -18,7 +18,7 @@ services:
       - "27017:27017"
     networks:
       - grocers
-
+    restart: unless-stopped
     volumes:
       - mongo-data:/data/db
 
